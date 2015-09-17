@@ -1,0 +1,89 @@
+<div class="container">
+    <div class=" encabezado">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <small><strong>{{title}}</strong></small> <small>| {{item.date}}</small> 
+            <div class="hr-divisor-mainList"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 nota-bajada">
+                <h3>{{item.volanta}}</h3>
+                <h1>{{item.title}}</h1>
+                <strong ng-bind-html="item.crest"></strong>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 calificacion-Nota">
+                    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8 puntos">
+                        <p>Calificaci&oacute;n:</p>
+                        <ul class="list-inline">
+                            <li ng-repeat="Star in [1,2,3,4,5]">
+                                <div ng-switch="item.stars >= Star">
+                                    <div ng-switch-when="true">
+                                        <img src="images/estrella.png">
+                                    </div>
+                                    <div ng-switch-when="false">
+                                        <img src="images/estrella_sin.png">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div ng-if="activeImage"> 
+                    <img ng-src="images/upload/{{itemType}}/{{activeImage.name}}" class="img-responsive img-thumbnail">
+                    <small>{{activeImage.title}}</small>
+                    <div class="imagenes-preview">
+                        <div class="slider1">
+                          <div class="slide slide-thumb" ng-repeat="image in item.images">
+                            <img ng-src="images/upload/{{itemType}}/{{image.name}}" ng-click="setActiveImage($index)" style="max-width:200px; cursor:pointer" class="img-responsive img-thumbnail">
+                            <small>{{image.title}}</small>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nota-contenido" ng-bind-html="item.text"></div>
+                <div class="nota-video" ng-if="isVideo">
+                    <iframe ng-src="{{item.iframeSrc}}" width="100%" height="444" frameborder="0" allowfullscreen=""></iframe>
+                </div>
+                <div ng-if="itemType == 'news' && item.archive">
+                    <a ng-href="http://cropscience.bayer.com.ar/esto-esta-pasando/{{item.archive.path}}{{item.archive.filename}}" target="_blank"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Descargar Archivo asociado</a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 calificacion-Nota">
+                    <div class="col-xs-9 col-sm-8 col-md-8 col-lg-8 puntos">
+                        <p>Calific&aacute; {{esteItem}}:</p>
+                        <ul class="list-inline">
+                            <li ng-repeat="Star in [1,2,3,4,5]">
+                                <img ng-src="{{item.rating > $index && 'images/estrella.png' || 'images/estrella_sin.png'}}" ng-click="rate($index)" style="cursor:pointer">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4 volver">
+                        <a ng-href="/esto-esta-pasando/{{path}}"><span class="pull-right"><img src="images/volver.png"></span><span class="pull-right">volver</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 relacionados" ng-if="relatedItems.length > 0">
+                <br><br><h3><span class="glyphicon glyphicon-link" aria-hidden="true"></span>Links relacionados</h3>
+                <div class="novedad-thumb col-xs-5 col-sm-12 col-md-12 col-lg-12" ng-repeat="related in relatedItems | limitTo:3">
+                    <a ng-href="novedades/{{related.id}}">
+                        <img ng-src="images/upload/{{itemType}}/{{related.images[0].name}}" class="img-responsive">
+                    </a>
+                    <h4 class="text-center">{{related.title}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        setTimeout(function(){ 
+            $('.slider1').bxSlider({
+            slideWidth: 190,
+            minSlides: 2,
+            maxSlides: 3,
+            slideMargin: 10,
+            controls: true,
+            pager:false
+          });
+         }, 300);
+    });
+</script>

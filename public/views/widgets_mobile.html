@@ -1,0 +1,90 @@
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading agenda_button_mobile" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Agenda
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <!-- SIDEBAR -->
+            <div class="col-sm-4 col-xs-12 col-md-5 col-lg-4 novedades-sidebar hidden-lg hidden-sm hidden-md">
+                <!-- <button type="button" class="btn btn-primary" id="btnAgenda" style="cursor: initial">Agenda</button> -->
+                <div class="home-sidebar" id="agenda">
+                    <table class="table table-hover">
+                      <tr ng-repeat="event in calendarEvents">
+                        <td>
+                            <div class="calendarContainer">
+                                <div class="calendarTop">
+                                    {{event.date | date:'dd' }}
+                                </div>
+                                <div class="calendarBottom">
+                                    {{event.date | date:'MMM' }}
+                                </div>
+                            </div>
+                            </td>
+                        <td>
+                                <h4 class="list-group-item-heading"><a ng-click="selectEvent($index)" data-toggle="modal" data-target="#myModal">{{event.title}}</a></h4>
+                                <div ng-bind-html="event.crest" class="calendarCrest"></div>
+                        </td>
+                      </tr>
+                    </table>
+                </div>
+            </div><!-- fin sidebar -->
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading agenda_button_mobile" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Multimedia
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+         <!-- SIDEBAR -->
+            <div class="col-sm-4 col-xs-12 col-md-5 col-lg-4 novedades-sidebar hidden-lg hidden-sm hidden-md">
+                <div class="hr-divisor-main"></div>
+                <!-- <button type="button" class="btn btn-primary" style="cursor: initial">Multimedia</button> -->
+                <div class="home-sidebar">
+                    <div class="botones-sidebar">
+                        <button type="button" class="btn btn-primary videos galeria" ng-class="{activo:isTabSet(1)}" ng-click="setTab(1)">Videos</button>
+                        <button type="button" class="btn btn-primary galeria" ng-class="{activo:isTabSet(2)}" ng-click="setTab(2)">Imágenes</button>
+                        <div class="posteos" ng-show="isTabSet(1)">
+                            <div class="galeria-post" ng-repeat="video in lastVideos | limitTo : 3">
+                                <a ng-href="galeria-videos/{{video.id}}">
+                                    <h4 class="text-center">{{video.title}}</h4>
+                                    <img ng-src="images/upload/videos/{{video.image.name}}" style="max-width:200px" class="img-responsive img-thumbnail center-block ">
+                                </a>
+                            </div>
+                            <hr>
+                            <div class="mas-videos">
+                                <button type="button" class="btn btn-primary  center-block"><a href="galeria-videos/">más videos</a></button>
+                            </div>
+                        </div>
+                        <div class="posteos" ng-show="isTabSet(2)">
+                            <div class="galeria-post" ng-repeat="album in lastAlbums  | limitTo : 3">
+                                <a ng-href="galeria-imagenes/{{album.id}}">
+                                    <h4 class="text-center">{{album.title}}</h4>
+                                    <img ng-src="images/upload/albums/{{album.image.name}}" style="max-width:200px" class="img-responsive img-thumbnail center-block ">
+                                </a>
+                            </div>
+                            <hr>
+                            <div class="mas-videos">
+                                <button type="button" class="btn btn-primary  center-block"><a href="galeria-imagenes/">más im&aacute;genes</a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- fin sidebar -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

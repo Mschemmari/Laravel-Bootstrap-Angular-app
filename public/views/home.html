@@ -1,0 +1,150 @@
+<div class="container">
+    <div class="row">
+        <!-- SLIDER -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 reset"> 
+            <div id="carousel-example-generic" class="carousel slide slider-home" data-ride="carousel">
+              
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox">
+               <div class="item" ng-repeat="slider in sliders" ng-class={active:slider.isActive}>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 slide-izq">
+                      <img ng-src="images/upload/home-sliders/{{slider.image.name}}" class="img-responsive" alt="...">
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+                    <div class="text-izq">
+                        <h3>{{slider.title}}</h3>
+                        <div ng-bind-html="slider.text"></div>
+                        <span class="ver-mas"><a ng-href="{{slider.link}}">ver m&aacute;s</a></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Controls -->
+              <a class="left carousel-control" data-target="#carousel-example-generic" role="button" data-slide="prev" style="cursor:pointer">
+                <span class="flecha-left" aria-hidden="true"><img src="images/left.png"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" data-target="#carousel-example-generic" role="button" data-slide="next" style="cursor:pointer">
+                <span class="flecha-right " aria-hidden="true"><img src="images/right.png"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div> 
+        </div><!-- Fin slider -->
+    </div><!-- Fin row -->
+</div><!-- FIN CONTAINER -->
+<div class="container hidden-md hidden-lg hidden-sm">
+    <div class="row multimedia_mobile">
+        <div ng-include src="'views/widgets_mobile.html'"></div>
+    </div>
+</div>
+    <!-- CUERPO -->
+    <!-- SIDEBAR PARA MOBILE -->
+    <div class="container hr-divisor-main"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-7 col-lg-8 novedades">
+            <button type="button" class="btn btn-primary" style="cursor: initial">Novedades</button>
+            <div class="novedad" ng-repeat="news in lastNews">
+                <a ng-href="novedades/{{news.id}}">
+                    <h5>{{news.volanta}}</h5>
+                    <h3>{{news.title}}</h3>
+                    <div>
+                        <img ng-src="images/upload/news/{{news.image.name}}" ng-href="novedades/{{news.id}}" class="img-responsive img-thumbnail">
+                        <small>{{news.image.title}}</small>
+                    </div>
+                    <div class="crest" ng-bind-html="news.crest" style="margin-top: 30px"></div>
+                    <span><a ng-href="novedades/{{news.id}}">ver m&aacute;s</a></span>
+                </a>
+                <hr class="hr-divisor-cuerpo">
+            </div>
+        </div>
+        
+         <!-- SIDEBAR -->
+        <div class="xs-hidden col-sm-4 col-md-5 col-lg-4 novedades-sidebar hidden-xs">
+            <button type="button" class="btn btn-primary" id="btnAgenda" style="cursor: initial">Agenda</button>
+            <div class="home-sidebar" id="agenda">
+                <table class="table table-hover">
+                  <tr ng-repeat="event in calendarEvents">
+                    <td>
+                        <div class="calendarContainer">
+                            <div class="calendarTop">
+                                {{event.date | date:'dd' }}
+                            </div>
+                            <div class="calendarBottom">
+                                {{event.date | date:'MMM' }}
+                            </div>
+                        </div>
+                        </td>
+                    <td>
+                            <h4 class="list-group-item-heading"><a ng-click="selectEvent($index)" data-toggle="modal" data-target="#myModal">{{event.title}}</a></h4>
+                            <div ng-bind-html="event.crest" class="calendarCrest"></div>
+                    </td>
+                  </tr>
+                </table>
+            </div>
+        </div><!-- fin sidebar -->
+
+        <!-- SIDEBAR -->
+        <div class="xs-hidden col-sm-4 col-md-5 col-lg-4 novedades-sidebar hidden-xs">
+            <div class="hr-divisor-main"></div>
+            <button type="button" class="btn btn-primary" style="cursor: initial">Multimedia</button>
+            <div class="home-sidebar">
+                <div class="botones-sidebar">
+                    <button type="button" class="btn btn-primary videos galeria" ng-class="{activo:isTabSet(1)}" ng-click="setTab(1)">Videos</button>
+                    <button type="button" class="btn btn-primary galeria" ng-class="{activo:isTabSet(2)}" ng-click="setTab(2)">Imágenes</button>
+                    <div class="posteos" ng-show="isTabSet(1)">
+                        <div class="galeria-post" ng-repeat="video in lastVideos | limitTo : 3">
+                            <a ng-href="galeria-videos/{{video.id}}">
+                                <h4 class="text-center">{{video.title}}</h4>
+                                <img ng-src="images/upload/videos/{{video.image.name}}" style="max-width:200px" class="img-responsive img-thumbnail center-block ">
+                            </a>
+                        </div>
+                        <hr>
+                        <div class="mas-videos">
+                            <button type="button" class="btn btn-primary  center-block"><a href="galeria-videos/">más videos</a></button>
+                        </div>
+                    </div>
+                    <div class="posteos" ng-show="isTabSet(2)">
+                        <div class="galeria-post" ng-repeat="album in lastAlbums  | limitTo : 3">
+                            <a ng-href="galeria-imagenes/{{album.id}}">
+                                <h4 class="text-center">{{album.title}}</h4>
+                                <img ng-src="images/upload/albums/{{album.image.name}}" style="max-width:200px" class="img-responsive img-thumbnail center-block ">
+                            </a>
+                        </div>
+                        <hr>
+                        <div class="mas-videos">
+                            <button type="button" class="btn btn-primary  center-block"><a href="galeria-imagenes/">más im&aacute;genes</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- fin sidebar -->
+        
+
+      
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="calendarContainer pull-left">
+            <div class="calendarTop">
+                {{selectedEvent.date | date:'dd' }}
+            </div>
+            <div class="calendarBottom">
+                {{selectedEvent.date | date:'MMM' }}
+            </div>
+        </div>
+        <h3 class="modal-title pull-left">{{selectedEvent.title}}</h3><div style="clear:both"></div>
+      </div>
+      <div class="modal-body" ng-bind-html="selectedEvent.text"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

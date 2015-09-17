@@ -1,0 +1,41 @@
+<div class="container col-fix-xs">
+    <div class=" encabezado">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h1>{{title}}</h1>
+            <div class="hr-divisor-mainList"></div>
+        </div>
+    </div>
+    <div class="row-novedades">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4" ng-repeat="item in pages[currentPage].items">
+            <div class="novedad-thumb">
+                <a ng-href="{{path | lowercase}}/{{item.id}}"><img ng-src="images/upload/{{itemType}}/{{item.images[0].name}}"  class="img-responsive"></a>
+                <small>{{item.date}}</small>
+                <a ng-href="{{path}}/{{item.id}}"><h4>{{item.title}}</h4></a> 
+                <div ng-bind-html="item.crest"></div>
+                <span><a ng-href="{{path}}/{{item.id}}" class="pull-right">ver m&aacute;s >></a></span><br></a>
+                <div class="puntaje clearfix">
+                    <ul class="list-inline pull-right">
+                        <li>Puntuaci&oacute;n</li>
+                        <li ng-repeat="Star in [1,2,3,4,5]">
+                            <div ng-switch="item.stars >= Star">
+                                <div ng-switch-when="true">
+                                    <img src="images/estrella.png">
+                                </div>
+                                <div ng-switch-when="false">
+                                    <img src="images/estrella_sin.png">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <nav>
+          <ul class="pager">
+            <li class="previous" ng-class="{hidden:currentPage==0}"><a ng-click="backwardPage()"><span aria-hidden="true">&larr;</span> Anterior</a></li>
+            <li class="next" ng-class="{hidden:currentPage==lastPage}"><a ng-click="forwardPage()">Siguiente <span aria-hidden="true">&rarr;</span></a></li>
+          </ul>
+        </nav>
+    </div>
+</div>
